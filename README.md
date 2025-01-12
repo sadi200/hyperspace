@@ -87,7 +87,7 @@ To continue, minimize your screen using `CTRL+A+D`
 
 ```
 
-Go to screen -r hyperspace, Chack Your Status
+Go to ```screen -r hyperspace```, Chack Your Status
 
 ```
 
