@@ -66,6 +66,8 @@ To continue, minimize your screen using `CTRL+A+D`
 
 screen -S cli-hyperspace
 
+source /root/.bashrc
+
 aios-cli models add hf:TheBloke/phi-2-GGUF:phi-2.Q4_K_M.gguf
 
 aios-cli infer --model hf:TheBloke/phi-2-GGUF:phi-2.Q4_K_M.gguf --prompt " Hello, How Can I do Now?"
