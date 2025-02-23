@@ -6,7 +6,9 @@ TELEGRAM_BOT_TOKEN="5166999201:AAE7gESJwomwSMlVspWBpJ7Y7wflUiB5UVI" TELEGRAM_CHA
 
 Function to send Telegram notifications
 
-send_telegram_message() { local message="$1" curl -s -X POST "https://api.telegram.org/bot${5166999201:AAE7gESJwomwSMlVspWBpJ7Y7wflUiB5UVI}/sendMessage" -d chat_id="${903018274}" -d text="${message}" }
+send_telegram_message() { local message="$1" curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" 
+-d chat_id="${TELEGRAM_CHAT_ID}" 
+-d text="${message}" }
 
 Infinite loop to keep retrying the script if any part fails
 
@@ -41,7 +43,7 @@ while true; do
     else
         echo "❌ Installation failed. Retrying in 10 seconds..."
         send_telegram_message "❌ HyperSpace CLI installation failed. Retrying..."
-        sleep 5
+        sleep 10
     fi
 done
 
@@ -79,56 +81,4 @@ while true; do
     aios-cli models add hf:TheBloke/Mistral-7B-Instruct-v0.1-GGUF:mistral-7b-instruct-v0.1.Q4_K_S.gguf | tee /root/model_download.log
 
     if grep -q "Download complete" /root/model_download.log; then
-        echo "✅ Model downloaded successfully!"
-        send_telegram_message "✅ Model downloaded successfully!"
-        break
-    else
-        echo "❌ Model download failed. Retrying in 10 seconds..."
-        send_telegram_message "❌ Model download failed. Retrying..."
-        sleep 5
-    fi
-done
-
-# Step 8: Ask for private key securely
-echo "🔑 Enter your private key:"
-read -p "Private Key: " private_key
-echo $private_key > /root/my.pem
-echo "✅ Private key saved to /root/my.pem"
-send_telegram_message "🔑 Private key saved."
-
-# Step 9: Import private key
-echo "🔑 Importing your private key..."
-aios-cli hive import-keys /root/my.pem
-send_telegram_message "✅ Private key imported into Hive."
-
-# Step 10: Login to Hive
-echo "🔐 Logging into Hive..."
-aios-cli hive login
-
-# Step 11: Connect to Hive
-echo "🌐 Connecting to Hive..."
-aios-cli hive connect
-send_telegram_message "🌐 Connected to Hive."
-
-# Step 12: Display system info
-echo "🖥️ Fetching system information..."
-aios-cli system-info
-
-# Step 13: Set Hive Tier
-echo "🏆 Setting your Hive tier to 3..."
-aios-cli hive select-tier 3
-send_telegram_message "🏆 Hive tier set to 3."
-
-# Step 14: Check Hive points in a loop every 10 seconds
-echo "📊 Checking your Hive points every 10 seconds..."
-echo "✅ HyperSpace Node setup complete!"
-send_telegram_message "✅ HyperSpace Node setup complete and running!"
-echo "ℹ️ Use 'CTRL + A + D' to detach the screen and 'screen -r epspace' to reattach."
-
-while true; do
-    echo "ℹ️ Press 'CTRL + A + D' to detach the screen, 'screen -r epspace' to reattach."
-    aios-cli hive points
-    sleep 10
-done
-
-done
+        echo "✅ Model downloaded successfully!
